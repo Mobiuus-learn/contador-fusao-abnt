@@ -1,0 +1,26 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+body{
+    display: flex;
+    min-height: 100vh;
+    /* justify-content: center; */
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+header{
+    position: absolute;
+    top:0;
+}
+form{
+    position: relative;
+    height: 80vh;
+    width: 80vw;
+    top: 10vh;
+    padding: 20px;
+    border:solid salmon 2px;
+    flex-direction: column;
+}
