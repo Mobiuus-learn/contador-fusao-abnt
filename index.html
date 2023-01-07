@@ -1,47 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contador de Fusões </title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contador de Fusões</title>
 
     <!-- import css -->
-    <link rel="stylesheet" href="/style/style.css">
-</head>
-<body>
-    <header>
-        <h1>Contador de Fusões</h1>
-    </header>
+    <link rel="stylesheet" href="/style/style.css" />
+    <script src="src/index.js" defer></script>
+  </head>
+  <body>
+     <form>
+      <div class="radio-group">
+        <span>
+          <h4>Informe o cabo alimentador:</h4>
+        </span>
+        <input type="radio" name="fh" id="12-fo" value="12" />
+        <label for="12-fo">12-fo</label>
+        <input type="radio" name="fh" id="24-fo" value="24" />
+        <label for="24-fo">24-fo</label>
+        <input type="radio" name="fh" id="36-fo" value="36" />
+        <label for="36-fo">36-fo</label>
+        <input type="radio" name="fh" id="48-fo" value="48" />
+        <label for="48-fo">48-fo</label>
+        <input type="radio" name="fh" id="72-fo" value="72" />
+        <label for="72-fo">72-fo</label>
+        <input type="radio" name="fh" id="144-fo" value="144" />
+        <label for="144-fo">144-fo</label>
+      </div>
 
-    <form >
-
-        <checkgroup>
-            <input type="checkbox" name="check-12-fo" id="check-12-fo" value="12">
-            <label for="check-12-fo">12 FO</label>
-            <input type="checkbox" name="check-24-fo" id="check-24-fo" value="24">
-            <label for="check-24-fo">24 FO</label>
-            <input type="checkbox" name="check-36-fo" id="check-36-fo" value="36">
-            <label for="check-36-fo">36 FO</label>
-            <input type="checkbox" name="check-48-fo" id="check-48-fo" value="48">
-            <label for="check-48-fo">48 FO</label>
-            <input type="checkbox" name="check-72-fo" id="check-72-fo" value="72">
-            <label for="check-72-fo">72 FO</label>
-            <input type="checkbox" name="check-144-fo" id="check-144-fo" value="144">
-            <label for="check-144-fo">144 FO</label>
-        </checkgroup>
-
-
+      <div class="container-main">
         <label for="f-intial">Fibra Inicial do Cabo</label>
-        <input type="text" name="f-initial" id="f-initial" placeholder="fibra inicial da contagem">
-
+        <input
+          type="number"
+          name="f-initial"
+          id="f-initial"
+         
+        />
 
         <label for="f-final">Fibra final do Cabo</label>
-        <input type="text" name="f-final" id="f-final" placeholder="fibra final da contagem" >
-        
-        
-        <button>Calcular</button>
+        <input
+          type="number"
+          name="f-final"
+          id="f-final"
+        />
+
+        <button onclick="showRadio()" type="button">Calcular</button>
         <button type="reset">Limpar</button>
+      </div>
     </form>
-</body>
+  </body>
 </html>
