@@ -51,7 +51,11 @@ const calcPrimary = () => {
   let fibFin = Number(fFinal.value);
   let calcFusion = Number(fibFin - fibIn + 1);
   let groupsC = fiberPerGroup();
-
+  if(fibFin > 144){
+    modal.style.display = "block";
+    modalContent.innerHTML = `<h3>A fibra final excede 144, por favor contate o administrador
+      para mais informações</h3>`;
+  }
   if (!groupsC) {
     // alert("Por favor selcione um cabo alimentador válido");
     // radioGroup.classList.add("error");
@@ -64,7 +68,7 @@ const calcPrimary = () => {
     modalContent.innerHTML = `<h3>A Fibra Final deve ser maior que a Fibra Inicial</h3>`;
     // alert("A fibra inicial deve ser maior que o valor Final!");
     return;
-    
+
   }
 
   if (getRadioValue() < fibFin) {

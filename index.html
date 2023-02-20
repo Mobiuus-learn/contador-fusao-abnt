@@ -2,53 +2,63 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="theme-color" prefered-color-scheme="dark" ccontent="#FF1053" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contador de Fusões</title>
 
+    <!-- <link rel="manifest" href="manifest.json" /> -->
     <!-- import css -->
     <link rel="stylesheet" href="/style/style.css" />
     <script src="src/index.js" defer></script>
   </head>
   <body>
-     <form>
+    <header>
+      <h2>Contador de fusões para fibra ótica.</h2>
+    </header>
+    <form>
+      <h2>Informe o cabo alimentador:</h2>
       <div class="radio-group">
-        <span>
-          <h4>Informe o cabo alimentador:</h4>
-        </span>
-        <input type="radio" name="fh" id="12-fo" value="12" />
+        <input type="radio" name="fh" class="" id="12-fo" value="12" />
         <label for="12-fo">12-fo</label>
-        <input type="radio" name="fh" id="24-fo" value="24" />
+        <input type="radio" name="fh" class="" id="24-fo" value="24" />
         <label for="24-fo">24-fo</label>
-        <input type="radio" name="fh" id="36-fo" value="36" />
+        <input type="radio" name="fh" class="" id="36-fo" value="36" />
         <label for="36-fo">36-fo</label>
-        <input type="radio" name="fh" id="48-fo" value="48" />
+        <input type="radio" name="fh" class="" id="48-fo" value="48" />
         <label for="48-fo">48-fo</label>
-        <input type="radio" name="fh" id="72-fo" value="72" />
+        <input type="radio" name="fh" class="" id="72-fo" value="72" />
         <label for="72-fo">72-fo</label>
-        <input type="radio" name="fh" id="144-fo" value="144" />
+        <input type="radio" name="fh" class="" id="144-fo" value="144" />
         <label for="144-fo">144-fo</label>
       </div>
 
       <div class="container-main">
-        <label for="f-intial">Fibra Inicial do Cabo</label>
-        <input
-          type="number"
-          name="f-initial"
-          id="f-initial"
-         
-        />
+        <label for="f-intial"><strong>Fibra Inicial do Cabo</strong></label>
+        <input type="number" name="f-initial" id="f-initial"/>
 
-        <label for="f-final">Fibra final do Cabo</label>
-        <input
-          type="number"
-          name="f-final"
-          id="f-final"
-        />
+        <label for="f-final"><strong>Fibra final do Cabo</strong></label>
+        <input type="number" name="f-final" id="f-final" />
 
         <button type="button" class="calc-btn">Calcular</button>
-        <button type="reset">Limpar</button>
+        <button type="reset" class="reset-btn">Limpar</button>
       </div>
+
+      <div class="show-results"></div>
     </form>
+    <div class="modal">
+      <div class="modal-content">
+        <h3>
+          A Quantidade de Fibras não pode exceder a quantidade de fibra
+          presentes no cabo
+        </h3>
+      </div>
+      <button class="btn-modal">OK</button>
+    </div>
+    <!-- <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js');
+      }
+    </script> -->
   </body>
 </html>
