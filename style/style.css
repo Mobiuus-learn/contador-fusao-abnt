@@ -40,11 +40,11 @@ form {
   padding: 10px 20px;
   border: white solid 2px;
   border-radius: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-evenly;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;
   margin-top: 10%;
 }
 .radio-group span {
@@ -60,9 +60,9 @@ form {
   font-size: 1rem;
   font-weight: 900;
   cursor: pointer;
-  padding: 8px 10px;
+  padding: 10px 16px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.12), 0px 1px 4px rgba(0, 0, 0, 0.16);
-  border-radius: 14px;
+  border-radius: 7px;
   background-color: #ffffff;
 }
 
@@ -96,7 +96,7 @@ input[type="number"] {
 }
 input[type="number"]:focus {
   outline: none;
-  border:solid 2px var(--highlight);
+  border: solid 2px var(--highlight);
 }
 
 .calc-btn {
@@ -147,12 +147,12 @@ button[type="reset"] {
   padding: 20px 15px;
   width: 80%;
   height: 173px;
-  top: 30% ;
+  top: 30%;
   text-align: center;
   background: #fbfbfb;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px -2px 4px rgba(0, 0, 0, 0.25);
   border-radius: 18px;
-  font-size: .865rem;
+  font-size: 0.865rem;
   display: none;
 }
 /* .btn-modal{
@@ -161,16 +161,40 @@ button[type="reset"] {
   height: 6.5vh;
   top: 8%;
 } */
-.btn-modal{
+.btn-modal {
   color: #ffffff;
   width: 20%;
-  height:5vh;
+  height: 5vh;
   background-color: var(--highlight);
   /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), */
-    /* 0px -1px 5px -1px rgba(0, 0, 0, 0.25); */
+  /* 0px -1px 5px -1px rgba(0, 0, 0, 0.25); */
   border-radius: 7px;
   border: none;
   position: absolute;
   top: 70%;
   left: 40%;
+}
+.show-results{
+  position: absolute;
+  padding: 20px 15px;
+  width: 80%;
+  height: 173px;
+  top: 30%;
+  left: 8%;
+  text-align: center;
+  background: #fbfbfb;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px -2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 18px;
+  font-size: 0.865rem;
+  display: none;
+
+}
+.results-content h2{
+  margin-top: -4%;
+
+}
+.results-content .groups-span{
+  font-weight: 700;
+  margin-top:2%;
+  color:var(--highlight);
 }

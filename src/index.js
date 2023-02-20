@@ -7,6 +7,8 @@ const showR = document.querySelector(".show-results");
 const modal = document.querySelector(".modal");
 const modalContent = document.querySelector(".modal-content");
 const modalClose = document.querySelector(".btn-modal");
+const modalResults = document.querySelector(".show-results");
+const resultsContent = document.querySelector(".results-content");
 
 // const possibleColors = [
 //   "verde",
@@ -51,7 +53,7 @@ const calcPrimary = () => {
   let fibFin = Number(fFinal.value);
   let calcFusion = Number(fibFin - fibIn + 1);
   let groupsC = fiberPerGroup();
-  if(fibFin > 144){
+  if (fibFin > 144) {
     modal.style.display = "block";
     modalContent.innerHTML = `<h3>A fibra final excede 144, por favor contate o administrador
       para mais informações</h3>`;
@@ -68,7 +70,6 @@ const calcPrimary = () => {
     modalContent.innerHTML = `<h3>A Fibra Final deve ser maior que a Fibra Inicial</h3>`;
     // alert("A fibra inicial deve ser maior que o valor Final!");
     return;
-
   }
 
   if (getRadioValue() < fibFin) {
@@ -101,12 +102,12 @@ function fiberPerGroup() {
 
 const showResult = (fusions, groupsCA) => {
   let spn = document.createElement("span");
-  spn.innerHTML = `O total de fusões é : <strong>${fusions}</strong>, <br> o total de grupos é : <strong>${groupsCA}</strong>`;
-  showR.appendChild(spn);
-
+  spn.innerHTML = `O total de fusões é : <strong>${fusions}</strong>, <br> <span style="margin-top:10px;">o total de grupos é : <strong>${groupsCA}</strong></span>`;
+  resultsContent.appendChild(spn);
+  modalResults.style.display = "block";
   const rs = document.querySelector(".reset-btn");
   rs.addEventListener("click", () => {
-    showR.removeChild(spn);
+    // resultsContent.removeChild(spn);
     radioGroup.classList.remove("error");
   });
 };
@@ -129,4 +130,4 @@ modalClose.addEventListener("click", () => {
   modal.style.display = "none";
   fInitial.value = "";
   fFinal.value = "";
-})
+});
