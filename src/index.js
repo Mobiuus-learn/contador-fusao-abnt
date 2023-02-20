@@ -6,24 +6,27 @@ const radioGroup = document.querySelector(".radio-group");
 const showR = document.querySelector(".show-results");
 const modal = document.querySelector(".modal");
 const modalContent = document.querySelector(".modal-content");
-const modalClose = document.querySelector(".btn-modal");
+const modalClose = document.querySelector("#modal-close");
+
+
 const modalResults = document.querySelector(".show-results");
 const resultsContent = document.querySelector(".results-content");
+const modalCloseResults = document.querySelector("#modal-close-results");
 
-// const possibleColors = [
-//   "verde",
-//   "amarelo",
-//   "branco",
-//   "azul",
-//   "vermelho",
-//   "violeta",
-//   "marrom",
-//   "rosa",
-//   "preto",
-//   "cinza",
-//   "laranja",
-//   "aqua",
-// ];
+const possibleColors = [
+  "verde",
+  "amarelo",
+  "branco",
+  "azul",
+  "vermelho",
+  "violeta",
+  "marrom",
+  "rosa",
+  "preto",
+  "cinza",
+  "laranja",
+  "aqua",
+];
 
 function mainCall() {
   getRadioValue();
@@ -75,6 +78,7 @@ const calcPrimary = () => {
   if (getRadioValue() < fibFin) {
     // alert("A quantidade de fusões é maior que o cabo informado!");
     modal.style.display = "block";
+    modalContent.innerHTML = `<h3>A quantidade de fusões é maior que o cabo informado</h3>`;
     return;
   }
 
@@ -104,6 +108,7 @@ const showResult = (fusions, groupsCA) => {
   let spn = document.createElement("span");
   spn.innerHTML = `O total de fusões é : <strong>${fusions}</strong>, <br> <span style="margin-top:10px;">o total de grupos é : <strong>${groupsCA}</strong></span>`;
   resultsContent.appendChild(spn);
+  // calcColors(fusions, groupsCA);
   modalResults.style.display = "block";
   const rs = document.querySelector(".reset-btn");
   rs.addEventListener("click", () => {
@@ -111,7 +116,7 @@ const showResult = (fusions, groupsCA) => {
     radioGroup.classList.remove("error");
   });
 };
-//TODO: Implemantar mapa de cores com base no numero de funções e ordem do grupo
+// TODO: Implemantar mapa de cores com base no numero de funções e ordem do grupo
 
 // let arrColors = []
 // const calcColors  = (fusions, tGroups)=>{
@@ -131,3 +136,7 @@ modalClose.addEventListener("click", () => {
   fInitial.value = "";
   fFinal.value = "";
 });
+
+modalCloseResults.addEventListener("click", () => {
+  modalResults.style.display = "none";
+})
