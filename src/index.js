@@ -8,135 +8,128 @@ const modal = document.querySelector(".modal");
 const modalContent = document.querySelector(".modal-content");
 const modalClose = document.querySelector("#modal-close");
 
-
 const modalResults = document.querySelector(".show-results");
 const resultsContent = document.querySelector(".results-content");
 const modalCloseResults = document.querySelector("#modal-close-results");
+const modalContainer = document.querySelector('.modal-container')
+
 
 const possibleColors = [
-  "verde",
-  "amarelo",
-  "branco",
-  "azul",
-  "vermelho",
-  "violeta",
-  "marrom",
-  "rosa",
-  "preto",
-  "cinza",
-  "laranja",
-  "aqua",
+  "verde", "amarelo", "branco", "azul", "vermelho", "violeta", "marrom", "rosa", "preto", "cinza", "laranja", "aqua"
 ];
 
-function mainCall() {
-  getRadioValue();
-  calcPrimary();
-}
-function getRadioValue() {
-  let result;
-  for (let index = 0; index < fieldSet.length; index++) {
-    const element = fieldSet[index];
-    if (element.checked) {
-      result = element.value;
-      return result;
-    }
-  }
-}
 const fiberBygroups = {
-  12: 12,
-  24: 6,
-  36: 6,
-  48: 12,
-  72: 12,
-  144: 12,
+  12: 12, 24: 6, 36: 6, 48: 12, 72: 12, 144: 12
 };
 
-const calcPrimary = () => {
-  let fibIn = Number(fInitial.value);
-  let fibFin = Number(fFinal.value);
-  let calcFusion = Number(fibFin - fibIn + 1);
-  let groupsC = fiberPerGroup();
+function mainCall() {
+  
+  const selectedFieldValue = getRadioValue();
+
+  if (!selectedFieldValue) {
+    displayModal("Por favor selecione um cabo alimentador válido");
+    return;
+  }
+
+  const fibIn = Number(fInitial.value);
+  const fibFin = Number(fFinal.value);
+
   if (fibFin > 144) {
-    modal.style.display = "block";
-    modalContent.innerHTML = `<h3>A fibra final excede 144, por favor contate o administrador
-      para mais informações</h3>`;
-  }
-  if (!groupsC) {
-    // alert("Por favor selcione um cabo alimentador válido");
-    // radioGroup.classList.add("error");
-    modal.style.display = "block";
-    modalContent.innerHTML = `<h3>Por favor selecione um cabo alimentador válido</h3>`;
+    displayModal("A fibra final excede 144, por favor contate o administrador para mais informações");
     return;
   }
+
   if (fibFin <= fibIn) {
-    modal.style.display = "block";
-    modalContent.innerHTML = `<h3>A Fibra Final deve ser maior que a Fibra Inicial</h3>`;
-    // alert("A fibra inicial deve ser maior que o valor Final!");
+    displayModal("A Fibra Final deve ser maior que a Fibra Inicial");
     return;
   }
 
-  if (getRadioValue() < fibFin) {
-    // alert("A quantidade de fusões é maior que o cabo informado!");
-    modal.style.display = "block";
-    modalContent.innerHTML = `<h3>A quantidade de fusões é maior que o cabo informado</h3>`;
+  if (selectedFieldValue < fibFin) {
+    displayModal("A quantidade de fusões é maior que o cabo informado");
     return;
   }
 
-  showResult(calcFusion, totalFusion(calcFusion, groupsC));
-  // calcColors(calcFusion, totalFusion(calcFusion, groupsC))
+  const calcFusion = fibFin - fibIn + 1;
+  const groupsC = fiberPerGroup(selectedFieldValue);
 
-  return calcFusion;
-};
-const totalFusion = (fusionT, totalGroups) => {
-  let groupsTotal = Math.ceil(fusionT / totalGroups);
-  console.log(groupsTotal);
-  return groupsTotal;
-};
+  const totalGroups = totalFusion(calcFusion, groupsC);
 
-function fiberPerGroup() {
-  let valueInput = getRadioValue();
-  let result;
-  for (const prop in fiberBygroups) {
-    if (prop == valueInput) {
-      result = fiberBygroups[prop];
-    }
-  }
-  return Number(result);
+  showResult(calcFusion, totalGroups);
+  calcColors(calcFusion, totalGroups);
 }
 
-const showResult = (fusions, groupsCA) => {
-  let spn = document.createElement("span");
+function getRadioValue() {
+  const checkedElement = Array.from(fieldSet).find(element => element.checked);
+  return checkedElement ? checkedElement.value : null;
+}
+
+function totalFusion(fusionT, totalGroups) {
+  return Math.ceil(fusionT / totalGroups);
+}
+
+function fiberPerGroup(valueInput) {
+  return fiberBygroups[valueInput] || 0;
+}
+
+function displayModal(message) {
+  modal.style.display = "block";
+  modalContent.innerHTML = `<h3>${message}</h3>`;
+}
+
+function showResult(fusions, groupsCA) {
+  const spn = document.createElement("span");
   spn.innerHTML = `O total de fusões é : <strong>${fusions}</strong>, <br> <span style="margin-top:10px;">o total de grupos é : <strong>${groupsCA}</strong></span>`;
+  
   resultsContent.appendChild(spn);
-  // calcColors(fusions, groupsCA);
+  modalContainer.style.display = 'block'
   modalResults.style.display = "block";
+  
+
+
   const rs = document.querySelector(".reset-btn");
   rs.addEventListener("click", () => {
-    // resultsContent.removeChild(spn);
     radioGroup.classList.remove("error");
   });
-};
-// TODO: Implemantar mapa de cores com base no numero de funções e ordem do grupo
+}
+function calcColors(fusions, totalGroups) {
+  const arrColors = [];
+  const fibersInGroup = fiberPerGroup(getRadioValue());
 
-// let arrColors = []
-// const calcColors  = (fusions, tGroups)=>{
-//   for(let i = 1; i < tGroups ; i++){
-//     for(let j = 1; j <= fusions; j++){
-//       // arrColors.length = fusions
-//       arrColors.push(possibleColors[j-1])
+  for (let i = 0; i < totalGroups; i++) {
+    const colorsInGroup = getColorsForGroup(fibersInGroup);
+    const maxFusionsInGroup = Math.min(fusions, fibersInGroup); // Limita o número de fusões ao total de fibras no grupo
 
-//       console.log(arrColors)
-//     }
-//   }
-// }
+    for (let j = 0; j < maxFusionsInGroup; j++) {
+      const colorIndex = j % colorsInGroup.length;
+      arrColors.push(colorsInGroup[colorIndex]);
+    }
+
+    fusions -= fibersInGroup; // Reduz o número de fusões pelo total de fibras no grupo
+  }
+
+  console.log(arrColors);
+  // Você pode usar arrColors para processamento ou exibição posterior
+}
+
+
+function getColorsForGroup(fibersInGroup) {
+  const availableColors = fibersInGroup <= 6 ? possibleColors.slice(0, fibersInGroup) : possibleColors.slice(0, 12);
+  return Array.from({ length: fibersInGroup }, (_, index) => availableColors[index % availableColors.length]);
+}
+
+
 sendButton.onclick = mainCall;
 
 modalClose.addEventListener("click", () => {
-  modal.style.display = "none";
-  fInitial.value = "";
-  fFinal.value = "";
+  closeModal(modal);
 });
 
 modalCloseResults.addEventListener("click", () => {
-  modalResults.style.display = "none";
-})
+  closeModal(modalResults);
+});
+
+function closeModal(element) {
+  element.style.display = "none";
+  fInitial.value = "";
+  fFinal.value = "";
+}
