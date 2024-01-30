@@ -11,19 +11,33 @@ const modalClose = document.querySelector("#modal-close");
 const modalResults = document.querySelector(".show-results");
 const resultsContent = document.querySelector(".results-content");
 const modalCloseResults = document.querySelector("#modal-close-results");
-const modalContainer = document.querySelector('.modal-container')
-
+const modalContainer = document.querySelector(".modal-container");
 
 const possibleColors = [
-  "verde", "amarelo", "branco", "azul", "vermelho", "violeta", "marrom", "rosa", "preto", "cinza", "laranja", "aqua"
+  "verde",
+  "amarelo",
+  "branco",
+  "azul",
+  "vermelho",
+  "violeta",
+  "marrom",
+  "rosa",
+  "preto",
+  "cinza",
+  "laranja",
+  "aqua",
 ];
 
 const fiberBygroups = {
-  12: 12, 24: 6, 36: 6, 48: 12, 72: 12, 144: 12
+  12: 12,
+  24: 6,
+  36: 6,
+  48: 12,
+  72: 12,
+  144: 12,
 };
 
 function mainCall() {
-  
   const selectedFieldValue = getRadioValue();
 
   if (!selectedFieldValue) {
@@ -35,7 +49,9 @@ function mainCall() {
   const fibFin = Number(fFinal.value);
 
   if (fibFin > 144) {
-    displayModal("A fibra final excede 144, por favor contate o administrador para mais informações");
+    displayModal(
+      "A fibra final excede 144, por favor contate o administrador para mais informações"
+    );
     return;
   }
 
@@ -59,7 +75,9 @@ function mainCall() {
 }
 
 function getRadioValue() {
-  const checkedElement = Array.from(fieldSet).find(element => element.checked);
+  const checkedElement = Array.from(fieldSet).find(
+    (element) => element.checked
+  );
   return checkedElement ? checkedElement.value : null;
 }
 
@@ -78,13 +96,13 @@ function displayModal(message) {
 
 function showResult(fusions, groupsCA) {
   const spn = document.createElement("span");
-  spn.innerHTML = `O total de fusões é : <strong>${fusions}</strong>, <br> <span style="margin-top:10px;">o total de grupos é : <strong>${groupsCA}</strong></span>`;
-  
-  resultsContent.appendChild(spn);
-  modalContainer.style.display = 'block'
-  modalResults.style.display = "block";
-  
+  spn.classList.add("text-results");
+  spn.innerHTML = `O total de fusões é : <strong><u>${fusions}</u></strong>, <br> 
+  <span style="margin-top:10px;">O  total de grupos é : <strong>${groupsCA}</strong></span>`;
 
+  resultsContent.appendChild(spn);
+  modalContainer.style.display = "block";
+  modalResults.style.display = "block";
 
   const rs = document.querySelector(".reset-btn");
   rs.addEventListener("click", () => {
@@ -111,12 +129,16 @@ function calcColors(fusions, totalGroups) {
   // Você pode usar arrColors para processamento ou exibição posterior
 }
 
-
 function getColorsForGroup(fibersInGroup) {
-  const availableColors = fibersInGroup <= 6 ? possibleColors.slice(0, fibersInGroup) : possibleColors.slice(0, 12);
-  return Array.from({ length: fibersInGroup }, (_, index) => availableColors[index % availableColors.length]);
+  const availableColors =
+    fibersInGroup <= 6
+      ? possibleColors.slice(0, fibersInGroup)
+      : possibleColors.slice(0, 12);
+  return Array.from(
+    { length: fibersInGroup },
+    (_, index) => availableColors[index % availableColors.length]
+  );
 }
-
 
 sendButton.onclick = mainCall;
 
